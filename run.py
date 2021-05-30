@@ -1,4 +1,4 @@
-from weixin.spider import Spider
+from core.spider import Spider
 
 if __name__ == '__main__':
     spider = Spider()

@@ -1,0 +1,5 @@
+pymysql
+requests
+redis
+environs
+pyquery
