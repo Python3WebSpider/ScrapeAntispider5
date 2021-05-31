@@ -1,5 +1,5 @@
-pymysql
 requests
 redis
 environs
 pyquery
+loguru

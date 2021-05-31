@@ -30,8 +30,7 @@ class RedisQueue():
         """
         if self.db.llen(REDIS_KEY):
             return loads(self.db.lpop(REDIS_KEY))
-        else:
-            return False
+        return False
 
     def clear(self):
         self.db.delete(REDIS_KEY)

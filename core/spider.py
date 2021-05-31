@@ -37,7 +37,7 @@ class Spider():
         self.session.headers.update(HEADERS)
         start_url = BASE_URL
         request = MovieRequest(
-            url=start_url, callback=self.parse_index, need_proxy=True)
+            url=start_url, callback=self.parse_index)
         # schedule first request
         self.queue.add(request)
 
@@ -54,7 +54,7 @@ class Spider():
         for item in items:
             detail_url = urljoin(BASE_URL, item.attr('href'))
             request = MovieRequest(
-                url=detail_url, callback=self.parse_detail, need_proxy=True)
+                url=detail_url, callback=self.parse_detail)
             yield request
 
         # request for next page
@@ -62,7 +62,7 @@ class Spider():
         if next_href:
             next_url = urljoin(BASE_URL, next_href)
             request = MovieRequest(
-                url=next_url, callback=self.parse_index, need_proxy=True)
+                url=next_url, callback=self.parse_index)
             yield request
 
     def parse_detail(self, response):
@@ -98,7 +98,7 @@ class Spider():
         :return: response
         """
         try:
-            proxy = self.get_proxy() if request.need_proxy else None
+            proxy = self.get_proxy()
             logger.debug(f'get proxy {proxy}')
             proxies = {
                 'http': 'http://' + proxy,
@@ -142,7 +142,7 @@ class Spider():
                 continue
             for result in results:
                 if isinstance(result, MovieRequest):
-                    logger.debug(f'generated new request {result}')
+                    logger.debug(f'generated new request {result.url}')
                     self.queue.add(result)
                 if isinstance(result, dict):
                     logger.debug(f'scraped new data {result}')
