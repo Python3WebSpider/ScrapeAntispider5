@@ -108,7 +108,7 @@ class Spider():
                                      timeout=request.timeout,
                                      proxies=proxies)
         except RequestException:
-            logger.error(f'requesting {request.url} failed')
+            logger.exception(f'requesting {request.url} failed')
 
     def error(self, request):
         """
